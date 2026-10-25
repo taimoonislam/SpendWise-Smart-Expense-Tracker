@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SpendWise is a simple personal finance and expense tracking app.">
+    <meta name="theme-color" content="#f6f5f2">
+    <title>SpendWise — Smart Expense Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-shell">
+        <aside class="sidebar" id="sidebar">
+            <a class="brand" href="#overview">
+                <span class="brand-mark">
+                    <svg viewBox="0 0 40 40" aria-hidden="true">
+                        <rect x="2" y="2" width="36" height="36" rx="12" fill="currentColor" />
+                        <path
+                            d="M12 14.5c0-2.2 2.3-3.7 5.2-3.7h7.1v4h-7c-.8 0-1.2.3-1.2.8 0 .6.5.8 1.4 1.1l4.6 1.4c3.1.9 4.8 2.6 4.8 5.2 0 3.3-2.8 5.5-6.8 5.5h-7.5v-4.1h7.5c1.3 0 2-.5 2-1.3 0-.7-.5-1.1-1.8-1.5l-4.3-1.3c-2.7-.8-4-2.5-4-5.1z"
+                            fill="#fff" />
+                    </svg>
+                </span>
+                <span class="brand-copy">
+                    <strong>SpendWise</strong>
+                    <small>PERSONAL FINANCE</small>
+                </span>
+            </a>
+
+            <div class="sidebar-label" data-i18n="workspace">WORKSPACE</div>
+            <nav class="side-nav" aria-label="Main navigation">
+                <a class="nav-item active" href="#overview"><span class="nav-icon">◫</span><span
+                        data-i18n="overview">Overview</span></a>
+                <a class="nav-item" href="#transactions"><span class="nav-icon">↕</span><span
+                        data-i18n="transactions">Transactions</span></a>
+                <a class="nav-item" href="#budget-card"><span class="nav-icon">◎</span><span data-i18n="budget">Monthly
+                        budget</span></a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <div class="tip-card">
+                    <span class="tip-spark">✦</span>
+                    <strong data-i18n="smallSteps">Small steps add up.</strong>
+                    <p data-i18n="tipText">A little awareness today can make tomorrow feel easier.</p>
+                </div>
+                <div class="profile-row">
+                    <div class="avatar">S</div>
+                    <div class="profile-copy">
+                        <strong data-i18n="yourSpace">Your space</strong>
+                        <small data-i18n="privateDevice">Private on this device</small>
+                    </div>
+                    <span class="lock">⌑</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content" id="overview">
+            <header class="topbar">
+                <button class="icon-button mobile-menu" id="menu-toggle" aria-label="Open menu">☰</button>
+                <div class="breadcrumb">
+                    <span data-i18n="workspace">WORKSPACE</span>
+                    <span class="crumb-slash">/</span>
+                    <strong data-i18n="overview">Overview</strong>
+                </div>
+
+                <div class="top-actions">
+                    <label class="language-wrap">
+                        <span class="sr-only">Language</span>
+                        <select id="language-select" aria-label="Language">
+                            <option value="en">English</option>
+                            <option value="bn">বাংলা</option>
+                            <option value="bl">Banglish</option>
+                        </select>
+                    </label>
+                    <button class="icon-button theme-button" id="theme-toggle" aria-label="Toggle dark mode"
+                        title="Toggle theme">☾</button>
+                    <button class="primary-button top-add" id="add-transaction-top">＋ <span
+                            data-i18n="addTransaction">Add transaction</span></button>
+                </div>
+            </header>
+
+            <section class="welcome-row">
+                <div>
+                    <p class="eyebrow" data-i18n="yourMoneyClearer">YOUR MONEY, A LITTLE CLEARER</p>
+                    <h1><span data-i18n="goodDay">A good day to</span> <em data-i18n="takeControl">take control.</em>
+                    </h1>
+                    <p class="subheading" data-i18n="welcomeText">Keep the little things in view. The bigger picture
+                        gets easier.</p>
+                </div>
+                <div class="date-chip">
+                    <span class="date-dot"></span>
+                    <span id="today-label">Today</span>
+                </div>
+            </section>
+
+            <section class="summary-grid" aria-label="Financial summary">
+                <article class="summary-card balance-card">
+                    <div class="summary-top"><span data-i18n="totalBalance">Total balance</span><span
+                            class="summary-symbol balance-symbol">৳</span></div>
+                    <div class="summary-value" id="total-balance">৳0</div>
+                    <div class="summary-foot"><span class="status-dot"></span><span data-i18n="balanceHint">Income minus
+                            expenses</span></div>
+                    <div class="balance-decoration" aria-hidden="true">
+                        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                </article>
+
+                <article class="summary-card">
+                    <div class="summary-top"><span data-i18n="incomeThisMonth">Income this month</span><span
+                            class="summary-symbol income-symbol">↙</span></div>
+                    <div class="summary-value" id="total-income">৳0</div>
+                    <div class="summary-foot"><span class="mini-trend up">↗</span><span data-i18n="moneyIn">Money coming
+                            in</span></div>
+                    <div class="mini-bars income-bars" aria-hidden="true">
+                        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                </article>
+
+                <article class="summary-card">
+                    <div class="summary-top"><span data-i18n="expensesThisMonth">Expenses this month</span><span
+                            class="summary-symbol expense-symbol">↗</span></div>
+                    <div class="summary-value" id="total-expenses">৳0</div>
+                    <div class="summary-foot"><span class="mini-trend down">↗</span><span data-i18n="moneyOut">Money
+                            going out</span></div>
+                    <div class="mini-bars expense-bars" aria-hidden="true">
+                        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                </article>
+
+                <article class="summary-card savings-card">
+                    <div class="summary-top"><span data-i18n="savingsRate">Savings rate</span><span
+                            class="summary-symbol savings-symbol">✳</span></div>
+                    <div class="summary-value" id="savings-rate">0%</div>
+                    <div class="summary-foot"><span class="status-dot purple-dot"></span><span
+                            data-i18n="incomeSaved">Of this month's income</span></div>
+                    <div class="savings-ring" aria-hidden="true"><span></span></div>
+                </article>
+            </section>
+
+            <section class="dashboard-grid">
+                <article class="panel spending-panel">
+                    <div class="panel-heading">
+                        <div>
+                            <h2 data-i18n="spendingOverview">Spending overview</h2>
+                            <p data-i18n="spendingDescription">Your expenses, at a glance</p>
+                        </div>
+                        <select id="chart-period" class="small-select" aria-label="Chart period">
+                            <option value="month">This month</option>
+                            <option value="last30">Last 30 days</option>
+                        </select>
+                    </div>
+
+                    <div class="chart-summary">
+                        <div><span class="legend-dot purple-legend"></span><span
+                                data-i18n="expenses">Expenses</span><strong id="chart-total">৳0</strong></div>
+                        <div class="chart-note" id="chart-note">No spending yet</div>
+                    </div>
+
+                    <div class="chart-wrap">
+                        <canvas id="spending-chart" aria-label="Spending chart" role="img"></canvas>
+                        <div id="chart-empty" class="chart-empty" hidden>
+                            <span>◌</span>
+                            <strong data-i18n="nothingToChart">Nothing to chart yet</strong>
+                            <small data-i18n="addExpenseHint">Add an expense to see your spending trend.</small>
+                        </div>
+                    </div>
+                    <div class="chart-axis"><span data-i18n="earlier">Earlier</span><span
+                            data-i18n="recent">Recent</span></div>
+                </article>
+
+                <article class="panel budget-panel" id="budget-card">
+                    <div class="panel-heading">
+                        <div>
+                            <h2 data-i18n="monthlyBudget">Monthly budget</h2>
+                            <p data-i18n="budgetDescription">Give your spending a gentle limit</p>
+                        </div>
+                        <button class="more-button" id="edit-budget" aria-label="Edit monthly budget"
+                            title="Edit budget">•••</button>
+                    </div>
+
+                    <div class="budget-amount"><strong id="budget-amount">৳25,000</strong><span data-i18n="perMonth">per
+                            month</span></div>
+                    <div class="budget-progress-track">
+                        <div class="budget-progress" id="budget-progress"></div>
+                    </div>
+                    <div class="budget-labels"><span id="budget-used-label">৳0 spent</span><strong
+                            id="budget-percent">0%</strong></div>
+                    <div class="budget-message" id="budget-message"><span class="budget-message-icon">✦</span><span
+                            data-i18n="budgetEncouragement">You’re building a good habit. Keep going.</span></div>
+
+                    <div class="budget-breakdown">
+                        <div><span class="category-icon food-icon">⌁</span>
+                            <div><strong data-i18n="food">Food</strong><small id="food-spend">৳0</small></div><span
+                                class="category-mini-track"><i id="food-track"></i></span>
+                        </div>
+                        <div><span class="category-icon transport-icon">↗</span>
+                            <div><strong data-i18n="transport">Transport</strong><small id="transport-spend">৳0</small>
+                            </div><span class="category-mini-track"><i id="transport-track"></i></span>
+                        </div>
+                        <div><span class="category-icon other-icon">✳</span>
+                            <div><strong data-i18n="other">Other</strong><small id="other-spend">৳0</small></div><span
+                                class="category-mini-track"><i id="other-track"></i></span>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <section class="panel transactions-panel" id="transactions">
+                <div class="panel-heading transaction-heading">
+                    <div>
+                        <h2 data-i18n="recentTransactions">Recent transactions</h2>
+                        <p data-i18n="transactionDescription">A simple record of where it all goes</p>
+                    </div>
+                    <div class="transaction-actions">
+                        <button class="secondary-button" id="export-csv">↧ <span data-i18n="exportCsv">Export
+                                CSV</span></button>
+                        <button class="primary-button" id="add-transaction-bottom">＋ <span data-i18n="addNew">Add
+                                new</span></button>
+                    </div>
+                </div>
+
+                <div class="filters-row">
+                    <label class="search-box">
+                        <span>⌕</span>
+                        <input type="search" id="search-input" data-i18n-placeholder="searchPlaceholder"
+                            placeholder="Search transactions..." autocomplete="off">
+                    </label>
+                    <div class="filter-controls">
+                        <select id="type-filter" aria-label="Filter type">
+                            <option value="all">All types</option>
+                            <option value="expense">Expenses</option>
+                            <option value="income">Income</option>
+                        </select>
+                        <select id="category-filter" aria-label="Filter category">
+                            <option value="all">All categories</option>
+                            <option>Food</option>
+                            <option>Transport</option>
+                            <option>Shopping</option>
+                            <option>Bills</option>
+                            <option>Health</option>
+                            <option>Education</option>
+                            <option>Entertainment</option>
+                            <option>Salary</option>
+                            <option>Freelance</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th data-i18n="transaction">TRANSACTION</th>
+                                <th data-i18n="category">CATEGORY</th>
+                                <th data-i18n="date">DATE</th>
+                                <th data-i18n="amount">AMOUNT</th>
+                                <th><span class="sr-only">Actions</span></th>
+                            </tr>
+                        </thead>
+                        <tbody id="transaction-list"></tbody>
+                    </table>
+
+                    <div id="no-transactions" class="empty-state" hidden>
+                        <span class="empty-icon">⌕</span>
+                        <strong data-i18n="noTransactions">No transactions found</strong>
+                        <p data-i18n="emptyHint">Try changing your search or add a new transaction.</p>
+                        <button class="secondary-button" id="empty-add">＋ <span data-i18n="addTransaction">Add
+                                transaction</span></button>
+                    </div>
+                </div>
+
+                <div class="table-footer">
+                    <span id="transaction-count">0 transactions</span>
+                    <button class="text-button" id="clear-filters" data-i18n="clearFilters">Clear filters</button>
+                </div>
+            </section>
+
+            <footer class="footer">
+                <span>SpendWise <span class="footer-heart">✦</span> <span data-i18n="madeFor">made for mindful money
+                        habits</span></span>
+                <span data-i18n="localData">Your data stays in this browser.</span>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Add / edit transaction dialog -->
+    <div class="modal-backdrop" id="transaction-modal" hidden>
+        <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <div class="modal-header">
+                <div>
+                    <p class="eyebrow" data-i18n="keepItSimple">KEEP IT SIMPLE</p>
+                    <h2 id="modal-title" data-i18n="addTransaction">Add transaction</h2>
+                </div>
+                <button class="icon-button close-modal" data-close-modal aria-label="Close">×</button>
+            </div>
+
+            <form id="transaction-form">
+                <div class="type-switch">
+                    <button type="button" class="type-choice active" data-type="expense"
+                        data-i18n="expense">Expense</button>
+                    <button type="button" class="type-choice" data-type="income" data-i18n="income">Income</button>
+                </div>
+
+                <input type="hidden" id="transaction-id">
+                <input type="hidden" id="transaction-type" value="expense">
+
+                <label class="field-label" for="transaction-title" data-i18n="description">Description</label>
+                <input class="form-input" id="transaction-title" required maxlength="80"
+                    placeholder="e.g. Lunch with friends">
+
+                <div class="form-two-col">
+                    <div>
+                        <label class="field-label" for="transaction-amount" data-i18n="amountTk">Amount (৳)</label>
+                        <input class="form-input" type="number" id="transaction-amount" min="0.01" max="100000000"
+                            step="0.01" required placeholder="0.00">
+                    </div>
+                    <div>
+                        <label class="field-label" for="transaction-category" data-i18n="category">Category</label>
+                        <select class="form-input" id="transaction-category" required></select>
+                    </div>
+                </div>
+
+                <label class="field-label" for="transaction-date" data-i18n="date">Date</label>
+                <input class="form-input" type="date" id="transaction-date" required>
+
+                <label class="field-label" for="transaction-note" data-i18n="noteOptional">Note (optional)</label>
+                <textarea class="form-input note-input" id="transaction-note" rows="2" maxlength="180"
+                    placeholder="A little detail to help you remember"></textarea>
+
+                <p class="form-error" id="form-error" role="alert"></p>
+                <div class="modal-actions">
+                    <button type="button" class="secondary-button" data-close-modal data-i18n="cancel">Cancel</button>
+                    <button type="submit" class="primary-button" id="save-transaction" data-i18n="saveTransaction">Save
+                        transaction</button>
+                </div>
+            </form>
+        </section>
+    </div>
+
+    <!-- Budget dialog -->
+    <div class="modal-backdrop" id="budget-modal" hidden>
+        <section class="modal budget-edit-modal" role="dialog" aria-modal="true" aria-labelledby="budget-modal-title">
+            <div class="modal-header">
+                <div>
+                    <p class="eyebrow" data-i18n="yourPlan">YOUR PLAN</p>
+                    <h2 id="budget-modal-title" data-i18n="setBudget">Set your monthly budget</h2>
+                </div>
+                <button class="icon-button close-modal" data-close-budget aria-label="Close">×</button>
+            </div>
+            <form id="budget-form">
+                <label class="field-label" for="budget-input" data-i18n="monthlyLimit">Monthly spending limit
+                    (৳)</label>
+                <input class="form-input" type="number" id="budget-input" min="1" max="100000000" step="1" required>
+                <p class="modal-helper" data-i18n="budgetHelper">Choose an amount that feels realistic for you. You can
+                    change it any time.</p>
+                <div class="modal-actions">
+                    <button type="button" class="secondary-button" data-close-budget data-i18n="cancel">Cancel</button>
+                    <button type="submit" class="primary-button" data-i18n="saveBudget">Save budget</button>
+                </div>
+            </form>
+        </section>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
